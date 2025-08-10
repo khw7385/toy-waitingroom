@@ -1,0 +1,15 @@
+name: waitingroom
+
+services:
+  db:
+    image: mysql
+    container_name: db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: waitingroom
+      MYSQL_USER: khw7385
+      MYSQL_PASSWORD: 1234
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
