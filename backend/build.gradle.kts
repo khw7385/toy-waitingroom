@@ -3,6 +3,7 @@ plugins{
     alias(libs.plugins.spring.boot) apply false
     alias(libs.plugins.spring.dependency.management) apply false
     alias(libs.plugins.kotlin.jvm) apply false
+    id("io.freefair.lombok") version "8.6" apply false
 }
 
 // 모든 프로젝트에 적용되는 설정
@@ -21,6 +22,7 @@ subprojects {
     apply(plugin = "java-library")
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "io.freefair.lombok")
 
     java {
         sourceCompatibility = JavaVersion.VERSION_17
