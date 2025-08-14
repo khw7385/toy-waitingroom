@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: gateway
+
+  threads:
+    virtual:
+      enabled: true
+
+service:
+  host:
+    member: http://localhost:8081
+
+jwt:
+  issuer: khw7385
+  secret: nIvrwpVv884E8+rGOxykXF9kPAuOjezK2bSMnqV/Qs0=
+  access-token-expire-time-in-hours: 1
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    urls:
+      - name: member-service
+        url: /member-service/api-docs
+
+logging:
+  level:
+    root: info
