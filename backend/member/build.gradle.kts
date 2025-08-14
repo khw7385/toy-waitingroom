@@ -3,11 +3,17 @@ plugins {
 }
 
 dependencies{
-    implementation(project(":common"))
+    implementation(project(":common-web"))
+    implementation(project(":common-data"))
+    implementation(project(":common-jwt"))
+
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.spring.boot.starter.security)
+    implementation(libs.spring.boot.starter.actuator)
     implementation(libs.mysql.connector.j)
+    implementation(libs.bundles.jwt)
+    implementation(libs.springdoc.openapi.starter.webmvc.ui)
 
-    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.bundles.testing)
 }

@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: member
@@ -13,4 +16,22 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-        format_sql: true
+
+jwt:
+  issuer: khw7385
+  secret: nIvrwpVv884E8+rGOxykXF9kPAuOjezK2bSMnqV/Qs0=
+  access-token-expire-time-in-hours: 1
+
+springdoc:
+  api-docs:
+    path: /member-service/api-docs
+    enabled: true
+  group-configs:
+    - group: 'member-service'
+      paths-to-match:
+        - "/auth/**"
+        - "/members/**"
+
+logging:
+  level:
+    root: info
