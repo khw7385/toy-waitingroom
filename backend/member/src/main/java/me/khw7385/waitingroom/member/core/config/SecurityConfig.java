@@ -1,5 +1,8 @@
 package me.khw7385.waitingroom.member.core.config;
 
+import me.khw7385.waitingroom.common.web.filter.RequestAuthenticationFilter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,10 +12,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableAutoConfiguration(exclude = {UserDetailsServiceAutoConfiguration.class})
 public class SecurityConfig {
+    @Bean
+    public RequestAuthenticationFilter requestAuthenticationFilter(){
+        return new RequestAuthenticationFilter();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -29,7 +38,12 @@ public class SecurityConfig {
                 .requestCache(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
+                )
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/members/**", "/auth/**", "/member-service/**").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .addFilterBefore(requestAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
