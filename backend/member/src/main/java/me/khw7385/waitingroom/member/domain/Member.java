@@ -1,7 +1,7 @@
 package me.khw7385.waitingroom.member.domain;
 
 import jakarta.persistence.*;
-import me.khw7385.waitingromm.common.data.domain.BaseTimeEntity;
+import me.khw7385.waitingroom.common.data.domain.BaseTimeEntity;
 import me.khw7385.waitingroom.member.domain.dto.MemberSpec;
 import lombok.*;
 
