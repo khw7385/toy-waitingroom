@@ -1,0 +1,31 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: coupon
+  datasource:
+    url: jdbc:mysql://localhost:3306/waitingroom?characterEncoding=UTF-8&&serverTimezone=UTC
+    username: khw7385
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+springdoc:
+  api-docs:
+    path: /coupon-service/api-docs
+    enabled: true
+  group-configs:
+    - group: 'coupon-service'
+      paths-to-match:
+        - "/coupons/**"
+
+logging:
+  level:
+    root: info
