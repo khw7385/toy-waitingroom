@@ -19,7 +19,8 @@ public class SwaggerRouteFilter implements HandlerFilterFunction<ServerResponse,
 
     public SwaggerRouteFilter(ServiceProperties serviceProperties) {
         uriMap = Map.of(
-                "member-service",serviceProperties.member()
+                "member-service", serviceProperties.member(),
+                "coupon-service", serviceProperties.coupon()
         );
     }
 
