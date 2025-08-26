@@ -1,5 +1,6 @@
 package me.khw7385.waitingroom.common.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -8,14 +9,15 @@ import io.jsonwebtoken.security.Keys;
 import me.khw7385.waitingroom.common.jwt.core.JwtProperties;
 import me.khw7385.waitingroom.common.jwt.core.exception.TokenExpiredException;
 import me.khw7385.waitingroom.common.jwt.core.exception.TokenInvalidException;
+import me.khw7385.waitingroom.common.jwt.dto.TokenMemberClaim;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.UUID;
 
 public class TokenManager {
-    private String issuer;
-    private SecretKey secretKey;
+    private final String issuer;
+    private final SecretKey secretKey;
 
     public TokenManager(JwtProperties jwtProperties) {
         // 토큰 발행자
@@ -40,14 +42,16 @@ public class TokenManager {
                 .compact();
     }
 
-    public void parseClaims(String token) {
+    public TokenMemberClaim parseClaims(String token) {
         try {
-            Jwts.parser()
+            Claims claims = Jwts.parser()
                     .requireIssuer(issuer)
                     .verifyWith(secretKey)
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();
+
+            return TokenMemberClaim.from(claims);
         }catch (ExpiredJwtException ex){
             throw new TokenExpiredException();
         }catch (JwtException x){
