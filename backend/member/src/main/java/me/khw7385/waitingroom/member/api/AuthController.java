@@ -27,4 +27,11 @@ public class AuthController implements AuthSwagger {
         String token = authFacade.login(request.toCommand());
         return new SuccessResponse<>(token);
     }
+
+    @PostMapping("/test-token")
+    @ResponseStatus(HttpStatus.CREATED)
+    public SuccessResponse<?> createTestToken(){
+        String token = authFacade.issueTestToken();
+        return new SuccessResponse<>(token);
+    }
 }

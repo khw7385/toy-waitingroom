@@ -42,4 +42,10 @@ public class AuthFacade {
 
         return tokenFacade.issueToken(member);
     }
+
+    @Transactional(readOnly = true)
+    public String issueTestToken(){
+        Member member = memberRepository.findById(1L).orElseThrow(NotFoundLoginIdException::new);
+        return tokenFacade.issueToken(member);
+    }
 }
