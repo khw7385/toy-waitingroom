@@ -3,7 +3,7 @@ package me.khw7385.waitingroom.member.core.config;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.servers.Server;
+import me.khw7385.waitingroom.common.web.config.BaseSwaggerConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,11 +17,10 @@ import java.util.List;
         )
 )
 @Configuration
-public class SwaggerConfig {
+public class SwaggerConfig extends BaseSwaggerConfig {
 
         @Bean
         public OpenAPI openAPI() {
-                return new OpenAPI()
-                        .servers(List.of(new Server().url("http://localhost:8080")));
+                return buildBaseOpenAPI();
         }
 }
