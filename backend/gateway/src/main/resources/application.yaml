@@ -9,6 +9,7 @@ spring:
 service:
   host:
     member: http://localhost:8081
+    coupon: http://localhost:8082
 
 jwt:
   issuer: khw7385
@@ -23,6 +24,8 @@ springdoc:
     urls:
       - name: member-service
         url: /member-service/api-docs
+      - name: coupon-service
+        url: /coupon-service/api-docs
 
 logging:
   level:
