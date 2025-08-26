@@ -2,6 +2,7 @@ package me.khw7385.waitingroom.gateway.filter;
 
 import lombok.RequiredArgsConstructor;
 import me.khw7385.waitingroom.common.jwt.TokenManager;
+import me.khw7385.waitingroom.common.jwt.dto.TokenMemberClaim;
 import me.khw7385.waitingroom.gateway.exception.TokenRequiredException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.function.HandlerFilterFunction;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class JwtAuthenticationFilter implements HandlerFilterFunction<ServerResponse, ServerResponse> {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
+    private static final String MEMBER_ID_HEADER = "X-MEMBER-ID";
 
     private final TokenManager tokenManager;
 
@@ -26,9 +28,13 @@ public class JwtAuthenticationFilter implements HandlerFilterFunction<ServerResp
         if(tokenOptional.isEmpty()){
             throw new TokenRequiredException();
         }
-        tokenManager.parseClaims(tokenOptional.get());
+        TokenMemberClaim memberClaim = tokenManager.parseClaims(tokenOptional.get());
 
-        return next.handle(request);
+        ServerRequest newRequest = ServerRequest.from(request)
+                .header(MEMBER_ID_HEADER, String.valueOf(memberClaim.memberId()))
+                .build();
+
+        return next.handle(newRequest);
     }
 
     private Optional<String> extractToken(ServerRequest serverRequest){
