@@ -1,4 +1,4 @@
-package me.khw7385.waitingromm.common.data.domain;
+package me.khw7385.waitingroom.common.data.domain;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

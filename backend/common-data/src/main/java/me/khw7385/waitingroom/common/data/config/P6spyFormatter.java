@@ -1,4 +1,4 @@
-package me.khw7385.waitingromm.common.data.config;
+package me.khw7385.waitingroom.common.data.config;
 
 import com.p6spy.engine.logging.Category;
 import com.p6spy.engine.spy.P6SpyOptions;

@@ -1,4 +1,4 @@
-package me.khw7385.waitingromm.common.data.config;
+package me.khw7385.waitingroom.common.data.config;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

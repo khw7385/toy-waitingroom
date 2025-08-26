@@ -1,2 +1,3 @@
-me.khw7385.waitingromm.common.data.config.JpaAuditingConfig
-me.khw7385.waitingromm.common.data.config.P6spyFormatter
+me.khw7385.waitingroom.common.data.config.JpaAuditingConfig
+me.khw7385.waitingroom.common.data.config.P6spyFormatter
+me.khw7385.waitingroom.common.data.config.QuerydslConfig
