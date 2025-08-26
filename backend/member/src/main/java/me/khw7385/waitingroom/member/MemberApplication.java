@@ -2,10 +2,9 @@ package me.khw7385.waitingroom.member;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
-@SpringBootApplication(exclude = { UserDetailsServiceAutoConfiguration.class })
+@SpringBootApplication
 @ConfigurationPropertiesScan
 public class MemberApplication {
 
