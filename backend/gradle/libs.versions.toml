@@ -3,11 +3,15 @@ springBoot="3.5.4"
 springDependencyManagement="1.1.4"
 springDoc="2.8.9"
 springCloud="4.3.0"
+springRetry="2.0.12"
+resilience4j="3.3.0"
 junit="5.13.4"
 kotlin="1.9.22"
 mysql="9.4.0"
 jjwt="0.12.6"
+h2="2.3.232"
 p6spy="1.12.0"
+querydsl="5.1.0"
 
 [libraries]
 # Spring Boot
@@ -17,13 +21,27 @@ spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spr
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test", version.ref = "springBoot" }
 spring-boot-starter-security = { group = "org.springframework.boot", name = "spring-boot-starter-security", version.ref = "springBoot" }
 spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator", version.ref = "springBoot" }
+spring-boot-starter-aop = { group = "org.springframework.boot", name = "spring-boot-starter-aop", version.ref = "springBoot" }
+
+# Spring Cloud
 spring-cloud-starter-gateway-server-mvc = { group = "org.springframework.cloud", name = "spring-cloud-starter-gateway-server-webmvc", version.ref = "springCloud"}
+spring-cloud-starter-circuitbraker-resilience4j = { group = "org.springframework.cloud", name = "spring-cloud-starter-circuitbreaker-resilience4j", version.ref = "resilience4j" }
+
+# Spring Retry
+spring-retry = { group = "org.springframework.retry", name = "spring-retry", version.ref = "springRetry"}
 
 # Testing
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
 
 # db
 mysql-connector-j = { group = "com.mysql", name = "mysql-connector-j", version.ref="mysql"}
+
+# querydsl
+querydsl-jpa = { group = "com.querydsl", name = "querydsl-jpa", version.ref="querydsl"}
+querydsl-apt = { group = "com.querydsl", name = "querydsl-apt", version.ref="querydsl"}
+
+jakarta-annotation-api = { group = "jakarta.annotation", name = "jakarta.annotation-api", version = "3.0.0" }
+jakarta-persistence-api = { group = "jakarta.persistence", name = "jakarta.persistence-api", version = "3.2.0" }
 
 # jwt
 jjwt-api = { group = "io.jsonwebtoken", name = "jjwt-api", version.ref = "jjwt"}
@@ -33,12 +51,16 @@ jjwt-jackson = { group = "io.jsonwebtoken", name = "jjwt-jackson", version.ref =
 # swagger
 springdoc-openapi-starter-webmvc-ui = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springDoc" }
 
+# h2
+h2 = { group = "com.h2database", name = "h2", version.ref = "h2"}
+
 # p6spy
 p6spy-spring-boot-starter = { group = "com.github.gavlyukovskiy", name = "p6spy-spring-boot-starter", version.ref = "p6spy"}
 
 [bundles]
-testing = ["spring-boot-starter-test", "junit-jupiter"]
+testing = ["spring-boot-starter-test", "junit-jupiter", "h2"]
 jwt = ["jjwt-api", "jjwt-impl", "jjwt-jackson"]
+querydsl-processor = ["jakarta-annotation-api", "jakarta-persistence-api"]
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }

@@ -2,7 +2,7 @@ plugins{
     `kotlin-dsl`
     alias(libs.plugins.spring.boot) apply false
     alias(libs.plugins.spring.dependency.management) apply false
-    alias(libs.plugins.kotlin.jvm) apply false
+//    alias(libs.plugins.kotlin.jvm) apply false
     id("io.freefair.lombok") version "8.6" apply false
 }
 
@@ -20,7 +20,7 @@ subprojects {
     version = "0.0.1-SNAPSHOT"
 
     apply(plugin = "java-library")
-    apply(plugin = "org.jetbrains.kotlin.jvm")
+//    apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "io.freefair.lombok")
 
