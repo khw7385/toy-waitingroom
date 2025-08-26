@@ -22,6 +22,10 @@ jwt:
   secret: nIvrwpVv884E8+rGOxykXF9kPAuOjezK2bSMnqV/Qs0=
   access-token-expire-time-in-hours: 1
 
+service:
+  host:
+    coupon: http://localhost:8082
+
 springdoc:
   api-docs:
     path: /member-service/api-docs
