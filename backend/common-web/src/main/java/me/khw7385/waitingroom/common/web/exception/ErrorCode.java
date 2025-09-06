@@ -17,7 +17,10 @@ public enum ErrorCode {
     // Coupon
     COUPON_NOT_FOUND("해당 쿠폰이 존재하지 않습니다."),
     COUPON_ALREADY_ISSUED("이미 발급받은 쿠폰입니다."),
-    COUPON_OUT_OF_STOCK("쿠폰이 모두 소진되었습니다.");
+    COUPON_OUT_OF_STOCK("쿠폰이 모두 소진되었습니다."),
+
+    // Service
+    SERVICE_UNAVAILABLE("%s 서비스가 불안정합니다. 잠시 후 시도해주세요.");
 
     String meesage;
 

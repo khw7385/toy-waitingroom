@@ -33,4 +33,10 @@ public class GlobalExceptionHandler {
     public ErrorResponse handle(InternalServerException ex){
         return new ErrorResponse(ex.getErrorCode(), ex.getMessage());
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public ErrorResponse handle(ServiceUnavailableException ex){
+        return new ErrorResponse(ex.getErrorCode(), ex.getMessage());
+    }
 }
