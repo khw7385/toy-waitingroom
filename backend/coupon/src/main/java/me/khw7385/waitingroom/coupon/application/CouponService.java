@@ -2,6 +2,7 @@ package me.khw7385.waitingroom.coupon.application;
 
 import lombok.RequiredArgsConstructor;
 import me.khw7385.waitingroom.coupon.application.dto.CouponIssueCommand;
+import me.khw7385.waitingroom.coupon.application.dto.CouponListAvailableForMemberResult;
 import me.khw7385.waitingroom.coupon.application.dto.CouponListAvailableResult;
 import me.khw7385.waitingroom.coupon.core.exception.CouponAlreadyIssuedException;
 import me.khw7385.waitingroom.coupon.core.exception.CouponNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +35,14 @@ public class CouponService {
     }
 
     @Transactional(readOnly = true)
-    public CouponListAvailableResult findCoupons(Long memberId){
-        return CouponListAvailableResult.from(couponRepository.findAvailableCoupons(memberId, LocalDateTime.now()));
+    public CouponListAvailableResult findCoupons(){
+        List<Coupon> coupons = couponRepository.findAllCoupons(LocalDateTime.now());
+
+        return CouponListAvailableResult.from(coupons);
+    }
+
+    @Transactional(readOnly = true)
+    public CouponListAvailableForMemberResult findAvailableCoupons(Long memberId){
+        return CouponListAvailableForMemberResult.from(couponRepository.findAvailableCoupons(memberId, LocalDateTime.now()));
     }
 }

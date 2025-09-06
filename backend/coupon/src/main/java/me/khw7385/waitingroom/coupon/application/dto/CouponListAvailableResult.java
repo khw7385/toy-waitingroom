@@ -1,26 +1,30 @@
 package me.khw7385.waitingroom.coupon.application.dto;
 
-import me.khw7385.waitingroom.coupon.domain.dto.CouponAvailableInfo;
+import lombok.Builder;
+import me.khw7385.waitingroom.coupon.domain.Coupon;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
 public record CouponListAvailableResult(
-    List<CouponAvailableResult> coupons
+        List<CouponAvailableResult> coupons
 ) {
-    public static CouponListAvailableResult from(List<CouponAvailableInfo> infos){
-        return new CouponListAvailableResult(
-                infos.stream()
-                        .map(i -> new CouponAvailableResult(i.couponIssueId(), i.couponId(), i.name(), i.expiredAt()))
-                        .toList()
-        );
+    public static CouponListAvailableResult from(List<Coupon> coupons){
+
+        return CouponListAvailableResult.builder()
+                .coupons(
+                        coupons.stream()
+                                .map(coupon -> new CouponAvailableResult(coupon.getId(), coupon.getName(), coupon.getValidUntil()))
+                                .toList()
+                )
+                .build();
     }
 
     public record CouponAvailableResult(
-        Long couponIssueId,
-        Long couponId,
-        String name,
-        LocalDateTime expiredAt
+            Long couponId,
+            String name,
+            LocalDateTime expiredAt
     ){
     }
 }

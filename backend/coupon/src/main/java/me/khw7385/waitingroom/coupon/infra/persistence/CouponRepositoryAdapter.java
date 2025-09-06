@@ -22,6 +22,11 @@ public class CouponRepositoryAdapter implements CouponRepository {
     }
 
     @Override
+    public List<Coupon> findAllCoupons(LocalDateTime expiredAt) {
+        return jpaCouponRepository.findByValidUntilIsAfter(expiredAt);
+    }
+
+    @Override
     public List<CouponAvailableInfo> findAvailableCoupons(Long memberId, LocalDateTime expiredAt) {
         return querydslCouponRepository.findAvailableCoupons(memberId, expiredAt);
     }

@@ -2,9 +2,9 @@ package me.khw7385.waitingroom.coupon.api;
 
 import lombok.RequiredArgsConstructor;
 import me.khw7385.waitingroom.common.web.dto.SuccessResponse;
-import me.khw7385.waitingroom.coupon.api.dto.CouponListAvailableResponse;
+import me.khw7385.waitingroom.coupon.api.dto.CouponListAvailableForMemberResponse;
 import me.khw7385.waitingroom.coupon.application.CouponService;
-import me.khw7385.waitingroom.coupon.application.dto.CouponListAvailableResult;
+import me.khw7385.waitingroom.coupon.application.dto.CouponListAvailableForMemberResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +20,8 @@ public class CouponInternalController {
     public SuccessResponse<?> getAvailableCoupons(
             @PathVariable("memberId") Long memberId
     ){
-        CouponListAvailableResult result = couponService.findCoupons(memberId);
+        CouponListAvailableForMemberResult result = couponService.findAvailableCoupons(memberId);
 
-        return new SuccessResponse<>(CouponListAvailableResponse.from(result));
+        return new SuccessResponse<>(CouponListAvailableForMemberResponse.from(result));
     }
 }

@@ -1,8 +1,11 @@
 package me.khw7385.waitingroom.coupon.api;
 
 import lombok.RequiredArgsConstructor;
+import me.khw7385.waitingroom.common.web.dto.SuccessResponse;
+import me.khw7385.waitingroom.coupon.api.dto.CouponListAvailableResponse;
 import me.khw7385.waitingroom.coupon.application.CouponService;
 import me.khw7385.waitingroom.coupon.application.dto.CouponIssueCommand;
+import me.khw7385.waitingroom.coupon.application.dto.CouponListAvailableResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +20,18 @@ public class CouponController {
     @ResponseStatus(HttpStatus.CREATED)
     public void issueCoupon(
             @AuthenticationPrincipal Long memberId,
-            @PathVariable Long couponId){
+            @PathVariable Long couponId) {
         couponFacade.issueCoupon(new CouponIssueCommand(memberId, couponId));
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public SuccessResponse<?> getCoupons(
+    ){
+        CouponListAvailableResult result = couponFacade.findCoupons();
+
+        return new SuccessResponse<>(
+                CouponListAvailableResponse.from(result)
+        );
     }
 }

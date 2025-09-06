@@ -2,7 +2,7 @@ package me.khw7385.waitingroom.coupon.unit.application;
 
 import me.khw7385.waitingroom.coupon.application.CouponService;
 import me.khw7385.waitingroom.coupon.application.dto.CouponIssueCommand;
-import me.khw7385.waitingroom.coupon.application.dto.CouponListAvailableResult;
+import me.khw7385.waitingroom.coupon.application.dto.CouponListAvailableForMemberResult;
 import me.khw7385.waitingroom.coupon.core.exception.CouponAlreadyIssuedException;
 import me.khw7385.waitingroom.coupon.core.exception.CouponNotFoundException;
 import me.khw7385.waitingroom.coupon.core.exception.CouponOutOfStockException;
@@ -116,7 +116,7 @@ public class CouponServiceUnitTest {
             given(doubleCouponRepository.findAvailableCoupons(anyLong(), any())).willReturn(infos);
 
             // when
-            CouponListAvailableResult result = couponService.findCoupons(1L);
+            CouponListAvailableForMemberResult result = couponService.findAvailableCoupons(1L);
 
             // then
             assertThat(result.coupons().size()).isEqualTo(infos.size());
