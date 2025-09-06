@@ -26,6 +26,20 @@ service:
   host:
     coupon: http://localhost:8082
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /member-service/actuator
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+
 springdoc:
   api-docs:
     path: /member-service/api-docs
@@ -35,6 +49,20 @@ springdoc:
       paths-to-match:
         - "/auth/**"
         - "/members/**"
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      coupon-service:
+        failure-rate-threshold: 50
+        slow-call-duration-threshold: 500
+        slow-call-rate-threshold: 50
+        minimum-number-of-calls: 10
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 20000
 
 logging:
   level:

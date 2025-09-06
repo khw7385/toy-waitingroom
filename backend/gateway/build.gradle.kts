@@ -10,4 +10,6 @@ dependencies {
     implementation(libs.spring.boot.starter.actuator)
 
     implementation(libs.springdoc.openapi.starter.webmvc.ui)
+
+    implementation(libs.spring.cloud.starter.circuitbraker.resilience4j)
 }

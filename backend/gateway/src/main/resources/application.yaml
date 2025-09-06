@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path:
+
 spring:
   application:
     name: gateway
@@ -6,19 +10,33 @@ spring:
     virtual:
       enabled: true
 
-service:
-  host:
-    member: http://localhost:8081
-    coupon: http://localhost:8082
-
 jwt:
   issuer: khw7385
   secret: nIvrwpVv884E8+rGOxykXF9kPAuOjezK2bSMnqV/Qs0=
   access-token-expire-time-in-hours: 1
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /gateway/actuator
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+service:
+  host:
+    member: http://localhost:8081
+    coupon: http://localhost:8082
+
 springdoc:
   api-docs:
     enabled: true
+    path: /api-docs
   swagger-ui:
     enabled: true
     urls:
@@ -27,6 +45,29 @@ springdoc:
       - name: coupon-service
         url: /coupon-service/api-docs
 
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        failure-rate-threshold: 50
+        slow-call-duration-threshold: 500
+        slow-call-rate-threshold: 50
+        minimum-number-of-calls: 10
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 20000
+    instances:
+      coupon-service:
+        base-config: default
+      member-service:
+        base-config: default
+
+cors:
+  allowed-urls: http://localhost:5173
+
 logging:
   level:
     root: info
+
