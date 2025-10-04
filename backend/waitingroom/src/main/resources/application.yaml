@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: waitingroom
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      connect-timeout: 2s
+
