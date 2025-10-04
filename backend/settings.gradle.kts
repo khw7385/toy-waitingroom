@@ -6,3 +6,4 @@ include("common-jwt");
 include("gateway");
 include("member");
 include("coupon");
+include("waitingroom")

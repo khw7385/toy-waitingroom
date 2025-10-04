@@ -7,10 +7,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import me.khw7385.waitingroom.common.jwt.TokenManager;
 import me.khw7385.waitingroom.common.jwt.dto.TokenMemberClaim;
 import me.khw7385.waitingroom.gateway.exception.TokenRequiredException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,9 +37,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
     private final TokenManager tokenManager;
+    private final HandlerExceptionResolver exceptionResolver;
 
-    public JwtAuthenticationFilter(TokenManager tokenManager) {
+    public JwtAuthenticationFilter(TokenManager tokenManager, @Qualifier(value = "handlerExceptionResolver") HandlerExceptionResolver exceptionResolver) {
         this.tokenManager = tokenManager;
+        this.exceptionResolver = exceptionResolver;
     }
 
     @Override
@@ -51,14 +56,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Optional<String> tokenOptional = extractToken(request);
 
         if(tokenOptional.isEmpty()){
-            throw new TokenRequiredException();
+            try{
+                throw new TokenRequiredException();
+            }catch(TokenRequiredException e){
+                exceptionResolver.resolveException(request, response, null, e);
+                return;
+            }
         }
+
         TokenMemberClaim memberClaim = tokenManager.parseClaims(tokenOptional.get());
-
         MutableHttpServletRequestWrapper requestWrapper = new MutableHttpServletRequestWrapper(request);
-
         requestWrapper.setHeader(MEMBER_ID_HEADER, String.valueOf(memberClaim.memberId()));
-        filterChain.doFilter(request, response);
+
+        filterChain.doFilter(requestWrapper, response);
     }
 
     private Optional<String> extractToken(HttpServletRequest request){

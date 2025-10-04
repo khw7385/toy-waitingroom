@@ -15,27 +15,27 @@ allprojects {
 }
 
 // 하위 프로젝트에 적용되는 설정
-subprojects {
-    group = "me.khw7385.waitingroom"
-    version = "0.0.1-SNAPSHOT"
+    subprojects {
+        group = "me.khw7385.waitingroom"
+        version = "0.0.1-SNAPSHOT"
 
-    apply(plugin = "java-library")
-//    apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "io.freefair.lombok")
+        apply(plugin = "java-library")
+    //    apply(plugin = "org.jetbrains.kotlin.jvm")
+        apply(plugin = "io.spring.dependency-management")
+        apply(plugin = "io.freefair.lombok")
 
-    java {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
+        java {
+            sourceCompatibility = JavaVersion.VERSION_21
+            targetCompatibility = JavaVersion.VERSION_21
+        }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>{
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>{
+            compilerOptions {
+                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+            }
+        }
+
+        tasks.withType<Test>{
+            useJUnitPlatform()
         }
     }
-
-    tasks.withType<Test>{
-        useJUnitPlatform()
-    }
-}

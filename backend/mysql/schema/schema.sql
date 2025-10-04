@@ -10,8 +10,11 @@ CREATE TABLE member (
 CREATE TABLE coupon(
     coupon_id bigint NOT NULL AUTO_INCREMENT,
     name VARCHAR(256) NOT NULL,
+    coupon_type VARCHAR(32) NOT NULL DEFAULT 'GENERAL',
     quantity int NOT NULL,
+    start_time DATETIME NULL COMMENT '쿠폰 발행 시간',
     valid_until DATETIME NULL COMMENT '쿠폰 유효 종료일(절대 기간)',
+
     created_at datetime NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (coupon_id)

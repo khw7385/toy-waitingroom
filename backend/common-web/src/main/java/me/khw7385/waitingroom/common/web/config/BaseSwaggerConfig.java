@@ -5,10 +5,13 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
 public class BaseSwaggerConfig {
+    @Value("${gateway.url}")
+    private String gatewayUrl;
 
     protected OpenAPI buildBaseOpenAPI(){
         String securitySchemeName = "bearerAuth";

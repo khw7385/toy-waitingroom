@@ -5,7 +5,7 @@ spring:
   application:
     name: coupon
   datasource:
-    url: jdbc:mysql://localhost:3306/waitingroom?characterEncoding=UTF-8&&serverTimezone=UTC
+    url: jdbc:mysql://db:3306/waitingroom?characterEncoding=UTF-8&&serverTimezone=UTC
     username: khw7385
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -27,10 +27,9 @@ springdoc:
         - "/coupons/**"
 
 gateway:
-  url: http://localhost:8080
+  url: http://gateway:8080
+
 
 logging:
   level:
     root: info
-
-

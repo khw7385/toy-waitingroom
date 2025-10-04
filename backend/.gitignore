@@ -37,3 +37,7 @@ out/
 .vscode/
 
 mysql/init/**
+/pinpoint
+/pinpoint-agent-2.5.4.tar.gz
+/zookeeper-data/myid
+/docker-compose-pinpoint.yaml
